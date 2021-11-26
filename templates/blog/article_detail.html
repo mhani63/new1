@@ -1,0 +1,287 @@
+{% load static %}
+{% load base_tags %}
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7 no-js" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8 no-js" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8)  ]><!-->
+<html lang="en" class="no-js">
+
+<!-- moviesingle07:38-->
+<head>
+	<!-- Basic need -->
+	<title>{{article.title}}</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="">
+	<link rel="profile" href="#">
+
+    <!--Google Font-->
+    <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600' />
+	<!-- Mobile specific meta -->
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<meta name="format-detection" content="telephone-no">
+
+	<!-- CSS files -->
+	<link rel="stylesheet" href="{%static 'blog/css/plugins.css'%}">
+	<link rel="stylesheet" href="{%static 'blog/css/style.css'%}">
+	<link rel="stylesheet" href="{% static 'blog/css/rtl.css'%}">
+
+</head>
+<body>
+<!--preloading-->
+<div id="preloader">
+    <img class="logo" src="{%static 'blog/images/logo1.png'%}" alt="" width="119" height="58">
+    <div id="status">
+        <span></span>
+        <span></span>
+    </div>
+</div>
+<!--end of preloading-->
+
+<!-- BEGIN | Header -->
+<header class="ht-header">
+	<div class="container">
+		<nav class="navbar navbar-default navbar-custom">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header logo">
+				    <div class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					    <span class="sr-only">Toggle navigation</span>
+					    <div id="nav-icon1">
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+				    </div>
+				    <a href="index-2.html"><img class="logo" src="{%static 'blog/images/logo1.png'%}" alt="" width="119" height="58"></a>
+			    </div>
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav flex-child-menu menu-left">
+						<li class="hidden">
+							<a href="#page-top"></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{%  url 'blog:home' %}">صفحه اصلی</a>
+						  </li>  
+						<li class="dropdown first">
+							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
+							دسته بندی <i class="fa fa-angle-down" aria-hidden="true"></i>
+							</a>
+							<ul class="dropdown-menu level1">
+								{% category_navbar %}
+							</ul>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">تماس با ما</a>
+						</li> 
+					</ul>
+					<ul class="nav navbar-nav flex-child-menu menu-right">
+						<li class="nav-item">
+							<a class="nav-link" href="#">پنل کاربری </a>
+						</li>                
+						{% if request.user.is_authenticated %}
+							<a class="nav-link" >{{user.get_username}}</a>
+						{%else%}
+						<li class="loginlink"><a href="{% url 'account:login' %}">ورود</a></li>
+						{% endif %}
+						<li class="btn signupLink"><a href="#">ثبت نام</a></li>
+					</ul>
+				</div>
+			<!-- /.navbar-collapse -->
+	    </nav>
+	    
+	    <!-- top search form -->
+		<form class="form-inline mt-3" action="{% url 'blog:search' %}">
+			<input type="text" name="q" class="form-control" placeholder="جستجوی متن">
+			<button class="btn btn-success" style="padding: 8px; border-radius: 5px; margin-right: 5px;">جستجو</button>
+		</form>
+	</div>
+</header>
+<!-- END | Header -->
+
+<div class="hero mv-single-hero">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<!-- <h1> movie listing - list</h1>
+				<ul class="breadcumb">
+					<li class="active"><a href="#">Home</a></li>
+					<li> <span class="ion-ios-arrow-right"></span> movie listing</li>
+				</ul> -->
+			</div>
+		</div>
+	</div>
+</div>
+<div class="page-single movie-single movie_single">
+	<div class="container">
+		<div class="row ipad-width2">
+			<div class="col-md-4 col-sm-12 col-xs-12">
+				<div class="movie-img">
+					<img src="{{object.thumbnail.url}}" alt="">
+					{%  if request.user.is_authenticated %}
+					<div class="movie-btn">	
+						<div class="btn-transform transform-vertical">
+							<div><a href="#" class="item item-1 yellowbtn"> <i class="fa fa-download"></i> دانلود</a></div>
+							<div><a href="#" class="item item-2 yellowbtn"><i class="fa fa-download"></i></a></div>
+						</div>
+					</div>
+					{%else%}
+					<div class="movie-btn">	
+						<div class="btn-transform transform-vertical">
+							<div><a href="{% url 'account:login' %}" class="item item-1 yellowbtn"> <i class="fa fa-download"></i> دانلود</a></div>
+							<div><a href="{% url 'account:login' %}" class="item item-2 yellowbtn"><i >برای دانلود لاگین کنید</i></a></div>
+						</div>
+					</div>
+					{% endif %}
+				</div>
+			</div>
+			<div class="col-md-8 col-sm-12 col-xs-12">
+				<div class="movie-single-ct main-content">
+					<h1 class="bd-hd">{{article.title}}<span></span></h1>
+					<div>بازدیدها:{{object.hits.count}}</div>
+					<time>{{article.publish}}</time>
+					<div class="social-btn">
+						<a href="#" class="parent-btn"><i class="ion-heart"></i> Add to Favorite</a>
+						<div class="hover-bnt">
+							<a href="#" class="parent-btn"><i class="ion-android-share-alt"></i>share</a>
+							<div class="hvr-item">
+								<a href="#" class="hvr-grow"><i class="ion-social-facebook"></i></a>
+								<a href="#" class="hvr-grow"><i class="ion-social-twitter"></i></a>
+								<a href="#" class="hvr-grow"><i class="ion-social-googleplus"></i></a>
+								<a href="#" class="hvr-grow"><i class="ion-social-youtube"></i></a>
+							</div>
+						</div>		
+					</div>
+					<div class="movie-rate">
+						<div class="rate">
+							<i class="ion-android-star">{{article.rate}}</i>
+						</div>
+						<div class="rate-star">
+							<p>Rate This Movie:  </p>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star-outline"></i>
+						</div>
+						<div class="sb-it" >
+							<h6 style="position: absolute;">درجه سنی:{{article.age}}</h6>
+						</div>
+					</div>
+					<div class="movie-tabs">
+						<div class="tabs">
+							<ul class="tab-links tabs-mv">
+								<li class="active"><a href="#overview">توضیحات</a></li>                      
+							</ul>
+						    <div class="tab-content">
+						        <div id="overview" class="tab active">
+						            <div class="row">
+						            	<div class="col-md-8 col-sm-12 col-xs-12" style="left: 200px;">
+						            		<p>{{article.description}}</p>
+						            	</div>
+										<div class="col-md-4 col-xs-12 col-sm-12" style="right: 600px;">
+											<div class="sb-it">
+												<h6>کارگردان: </h6>
+												<p><a href="#">{{article.director}}</a></p>
+											</div>
+											<div class="sb-it">
+												<h6>ستارگان: </h6>
+												<p><a href="#">{{article.stars}}</a></p>
+											</div>
+											<div class="sb-it">
+												<h6>ژانر:</h6>
+												{%  for cat in article.category.all %}
+												<p><a href="{% url 'blog:category' cat.slug  %}">{{cat.title}}</a> 
+												{% endfor %}
+											</div>
+											<div class="sb-it">
+												<h6>مدت زمان:</h6>
+												<p>{{article.time}}</p>
+											</div>
+										</div>
+						            </div>
+						        </div>
+						    </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- footer section-->
+<footer class="ht-footer">
+	<div class="container">
+		<div class="flex-parent-ft">
+			<div class="flex-child-ft item1">
+				 <a href="index-2.html"><img class="logo" src="images/logo1.png" alt=""></a>
+				 <p>5th Avenue st, manhattan<br>
+				New York, NY 10001</p>
+				<p>Call us: <a href="#">(+01) 202 342 6789</a></p>
+			</div>
+			<div class="flex-child-ft item2">
+				<h4>Resources</h4>
+				<ul>
+					<li><a href="#">About</a></li> 
+					<li><a href="#">Blockbuster</a></li>
+					<li><a href="#">Contact Us</a></li>
+					<li><a href="#">Forums</a></li>
+					<li><a href="#">Blog</a></li>
+					<li><a href="#">Help Center</a></li>
+				</ul>
+			</div>
+			<div class="flex-child-ft item3">
+				<h4>Legal</h4>
+				<ul>
+					<li><a href="#">Terms of Use</a></li> 
+					<li><a href="#">Privacy Policy</a></li>	
+					<li><a href="#">Security</a></li>
+				</ul>
+			</div>
+			<div class="flex-child-ft item4">
+				<h4>Account</h4>
+				<ul>
+					<li><a href="#">My Account</a></li> 
+					<li><a href="#">Watchlist</a></li>	
+					<li><a href="#">Collections</a></li>
+					<li><a href="#">User Guide</a></li>
+				</ul>
+			</div>
+			<div class="flex-child-ft item5">
+				<h4>Newsletter</h4>
+				<p>Subscribe to our newsletter system now <br> to get latest news from us.</p>
+				<form action="#">
+					<input type="text" placeholder="Enter your email...">
+				</form>
+				<a href="#" class="btn">Subscribe now <i class="ion-ios-arrow-forward"></i></a>
+			</div>
+		</div>
+	</div>
+	<div class="ft-copyright">
+		<div class="ft-left">
+			<p><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></p>
+		</div>
+		<div class="backtotop">
+			<p><a href="#" id="back-to-top">Back to top  <i class="ion-ios-arrow-thin-up"></i></a></p>
+		</div>
+	</div>
+</footer>
+<!-- end of footer section-->
+
+<script src="{%static 'blog/js/jquery.js'%}"></script>
+<script src="{%static 'blog/js/plugins.js'%}"></script>
+<script src="{%static 'blog/js/plugins2.js'%}"></script>
+<script src="{%static 'blog/js/custom.js'%}"></script>
+</body>
+
+<!-- moviesingle11:03-->
+</html>

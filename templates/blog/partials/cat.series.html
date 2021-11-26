@@ -1,0 +1,6 @@
+{% for cat in category  %}
+<div class="title-hd">
+    <h2>لیست سریال ها</h2>
+    <a href="{% url 'blog:category'  cat.slug  %}" class="viewall">مشاهده همه <i class="ion-ios-arrow-left"></i></a>
+</div>
+{% endfor  %}
