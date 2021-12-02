@@ -37,13 +37,7 @@
 </head>
 <body>
 <!--preloading-->
-<div id="preloader">
-    <img class="logo" src="{% static 'blog/images/logo1.png'%}" alt="" width="119" height="58">
-    <div id="status">
-        <span></span>
-        <span></span>
-    </div>
-</div>
+
 <!--end of preloading-->
 
 <!-- BEGIN | Header -->
@@ -105,9 +99,11 @@
 	    
 	    <!-- top search form -->
 		<form class="form-inline mt-3" action="{% url 'blog:search' %}">
-			<input type="text" name="q" class="form-control" placeholder="جستجوی متن">
-			<button class="btn btn-success" style="padding: 8px; border-radius: 5px; margin-right: 5px;">جستجو</button>
+			<input type="text" name="q" class="form-control" placeholder="جستجوی متن" style="background: center;">
+			<button class="btn btn-success" style="padding: 5px; border-radius: 7px; margin-right: 5px; background: darkgray;">جستجو</button>
 		</form>
+	</div>
+</header>
 	</div>
 </header>
 <!-- END | Header -->

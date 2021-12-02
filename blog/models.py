@@ -4,8 +4,13 @@ from django.db.models.fields import BooleanField
 from django.utils import timezone
 from django.utils.html import format_html
 from account.models import User
-
+from django.contrib.contenttypes.fields import GenericRelation
+from comment.models import Comment
 # Create your models here.
+
+
+
+
 class IpAdderss(models.Model):
 	ip_address = models.GenericIPAddressField(verbose_name="آدرس آی‌پی")
 
@@ -77,7 +82,7 @@ class Article(models.Model):
     category=models.ManyToManyField(Category,verbose_name='دسته بندی',related_name='articles')
     author=models.ForeignKey(User,null=True,on_delete=models.SET_NULL,related_name='articles',verbose_name='نویسنده')
     hits=models.ManyToManyField(IpAdderss,blank=True,related_name='hits',verbose_name='بازدیدها')
-
+    comments = GenericRelation(Comment)
     def __str__(self):
         return self.title
 

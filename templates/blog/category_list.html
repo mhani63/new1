@@ -35,13 +35,6 @@
 </head>
 <body>
 <!--preloading-->
-<div id="preloader">
-    <img class="logo" src="{%static 'blog/images/logo1.png'%}" alt="" width="119" height="58">
-    <div id="status">
-        <span></span>
-        <span></span>
-    </div>
-</div>
 <!--end of preloading-->
 <!-- BEGIN | Header -->
 <header class="ht-header">
@@ -73,7 +66,7 @@
 							دسته بندی <i class="fa fa-angle-down" aria-hidden="true"></i>
 							</a>
 							<ul class="dropdown-menu level1">
-								{% category_navbar %}
+								{%category_navbar %}
 							</ul>
 						</li>
 						<li class="nav-item">
@@ -81,11 +74,20 @@
 						</li> 
 					</ul>
 					<ul class="nav navbar-nav flex-child-menu menu-right">
+						<li><a class="nav-link" href="{% url 'account:logout' %}">خروج </a></li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">پنل کاربری </a>
-						</li>                
-						<li class="loginLink"><a href="#">ورود</a></li>
-						<li class="btn signupLink"><a href="#">ثبت نام</a></li>
+							{% if request.user.is_authenticated %}
+							<a class="nav-link" href="{%url 'account:profile'%}">پنل کاربری </a>
+							{% else %}
+							<a class="nav-link" href="{% url 'account:login' %}">پنل کاربری </a>
+							{% endif %}
+						</li> 
+						{% if request.user.is_authenticated %}
+							<a class="nav-link" >{{user.get_username}}</a>
+						{%else%}
+						<li class="loginlink"><a href="{% url 'account:login' %}">ورود</a></li>
+						{% endif %}
+						<li class="loginlink"><a href="{% url  'account:signup'  %}">ثبت نام</a></li>
 					</ul>
 				</div>
 			<!-- /.navbar-collapse -->
@@ -93,8 +95,8 @@
 	    
 	    <!-- top search form -->
 		<form class="form-inline mt-3" action="{% url 'blog:search' %}">
-			<input type="text" name="q" class="form-control" placeholder="جستجوی متن">
-			<button class="btn btn-success" style="padding: 8px; border-radius: 5px; margin-right: 5px;">جستجو</button>
+			<input type="text" name="q" class="form-control" placeholder="جستجوی متن" style="background: center;">
+			<button class="btn btn-success" style="padding: 5px; border-radius: 7px; margin-right: 5px; background: darkgray;">جستجو</button>
 		</form>
 	</div>
 </header>
@@ -131,7 +133,7 @@
 				<div class="movie-item-style-2" >
 					<img src="{{article.thumbnail.url}}" style="margin: 15px;">
 					<div class="mv-item-infor">
-						<h6><a href="moviesingle.html">{{article.title}}<span></span></a></h6>
+						<h6><a href="{%url 'blog:detail' article.slug%}">{{article.title}}<span></span></a></h6>
 						<p class="rate"><i class="ion-android-star"></i><span>{{article.rate}}</span> /10</p>
 						<p class="describe">خلاصه فیلم: {{article.description}}</p>
 						<p class="run-time"> مدت زمان: {{article.time}}

@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path , include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.urls.conf import re_path
 
 
 
@@ -25,6 +26,9 @@ urlpatterns = [
     path('',include('blog.urls')),
     path('account/',include('account.urls')),
     path('',include('django.contrib.auth.urls')),
+    path('admin/', admin.site.urls),
+    path('comment/', include('comment.urls')),
+    re_path(r'^ratings/', include('star_ratings.urls', namespace='ratings')),
 
 ]
 

@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-$(-c6#exd0+v2e-502bwalaq#uob28j*po$cx-n!u2-^+1@em%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['lost20.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition
@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'widget_tweaks',
     'crispy_forms',
+    'comment',
+    'star_ratings',
+    
 ]
 
 MIDDLEWARE = [
@@ -139,6 +142,7 @@ AUTH_USER_MODEL='account.User'
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'mohsen199490@gmail.com'
+EMAIL_HOST_USER = 'marimn199490@gmail.com'
 EMAIL_HOST_PASSWORD = '20142014mohsen'
 EMAIL_PORT = 587
+STAR_RATINGS_RANGE=3
